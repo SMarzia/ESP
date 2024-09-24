@@ -1,0 +1,38 @@
+#include <Keypad.h>
+#include <ESP32Servo.h>
+
+
+Servo miniservo;
+const byte ROWS = 4; // Four rows
+const byte COLS = 4; // Four columns
+char keys[ROWS][COLS] = {
+  {'1', '2', '3', 'A'},
+  {'4', '5', '6', 'B'},
+  {'7', '8', '9', 'C'},
+  {'*', '0', '#', 'D'}
+};
+
+byte rowPins[ROWS] = { 23, 22, 21, 19 }; // Connect to the row pinouts of the keypad
+byte colPins[COLS] = { 18, 17, 16, 15 }; // Connect to the column pinouts of the keypad
+
+Keypad keypad = Keypad(makeKeymap(keys), rowPins, colPins, ROWS, COLS);
+
+void setup() {
+  Serial.begin(9600);
+  miniservo.attach(27);
+  miniservo.write(0);
+}
+
+void loop() {
+  char key = keypad.getKey();
+  if (key=='5') {
+    for (int angle=0; angle<=180; angle++){
+      miniservo.write(angle);
+      delay(15);
+    } // Print the key pressed
+  }
+  if (key!='5')
+  {
+    Serial.println("Servo is not turned on. Wrong password."); // Print the key pressed
+  }
+}
