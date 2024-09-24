@@ -1,0 +1,23 @@
+#include <ESP32Servo.h>
+
+Servo myServo;  // Create a Servo object
+ 
+void setup() {
+  myServo.attach(27);  // Attach the servo on pin 13 to the servo object
+  myServo.write(0);     // Set the servo to 0 degrees
+  delay(1000);          // Wait for a second
+}
+
+void loop() {
+  // Move the servo from 0 to 180 degrees
+  for (int pos = 0; pos <= 180; pos += 1) {
+    myServo.write(pos);  // Tell servo to go to position in variable 'pos'
+    delay(15);           // Wait 15 milliseconds for the servo to reach the position
+  }
+
+  // Move the servo from 180 to 0 degrees
+  for (int pos = 180; pos >= 0; pos -= 1) {
+    myServo.write(pos);  // Tell servo to go to position in variable 'pos'
+    delay(15);           // Wait 15 milliseconds for the servo to reach the position
+  }
+}
